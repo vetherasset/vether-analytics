@@ -2,14 +2,22 @@ import { ColorModeScript } from '@chakra-ui/react'
 import React, { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import defaults from './common/defaults'
 import reportWebVitals from './reportWebVitals'
 import * as serviceWorker from './serviceWorker'
 
+const client = new ApolloClient({
+	uri: 'https://api.thegraph.com/subgraphs/name/satoshi-naoki/vether',
+	cache: new InMemoryCache(),
+})
+
 ReactDOM.render(
 	<StrictMode>
 		<ColorModeScript initialColorMode={defaults.theme.mode} />
-		<App />
+		<ApolloProvider client={client}>
+			<App />
+		</ApolloProvider>,
 	</StrictMode>,
 	document.getElementById('root'),
 )

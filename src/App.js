@@ -2,9 +2,9 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { ChakraProvider, Flex, Box, ScaleFade } from '@chakra-ui/react'
 import vether from './themes/vether'
-import defaults from './common/defaults'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
+import { BurnChart } from './components/BurnChart'
 
 const App = () => {
 
@@ -28,9 +28,7 @@ const App = () => {
 									initialScale={0.95}
 									in={true}
 									unmountOnExit>
-									<Box maxW={defaults.layout.width} m='0 auto'>
-										Token Analytics
-									</Box>
+									<BurnChart/>
 								</ScaleFade>
 							}/>
 							<Route path='*' render={() =>
