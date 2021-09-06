@@ -4,7 +4,8 @@ import { ChakraProvider, Flex, Box, ScaleFade } from '@chakra-ui/react'
 import vether from './themes/vether'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
-import { BurnChart } from './components/BurnChart'
+import BurnChart from './components/BurnChart'
+import HolderChart from './components/HolderChart'
 
 const App = () => {
 
@@ -29,6 +30,7 @@ const App = () => {
 									in={true}
 									unmountOnExit>
 									<BurnChart/>
+									<HolderChart/>
 								</ScaleFade>
 							}/>
 							<Route path='*' render={() =>
