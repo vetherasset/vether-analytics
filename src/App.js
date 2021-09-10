@@ -53,6 +53,7 @@ const App = () => {
 							h='auto'
 							bg='rgb(42, 42, 42)'
 							borderRadius='1.4rem'
+							border='1px solid rgba(255, 255, 255, 0.2)'
 							m='1rem'
 							p='3.4rem 2.3rem 3.3rem'>
 							<GlobalsPanel
