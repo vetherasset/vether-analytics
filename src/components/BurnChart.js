@@ -43,7 +43,7 @@ export const BurnChart = props => {
 					show: false,
 				},
 			},
-			colors: ['#FF0080'],
+			colors: ['#ff596f'],
 			stroke: { width: 2 },
 			grid: {
 				borderColor: '#555',
@@ -93,7 +93,7 @@ export const BurnChart = props => {
 					},
 				},
 			},
-			colors: ['#aa0080'],
+			colors: ['#ff596f'],
 			series: [{ data: chartData }],
 			stroke: { width: 2 },
 			xaxis: { type: 'datetime' },
@@ -102,7 +102,7 @@ export const BurnChart = props => {
 	}
 
 	return (
-		<Flex {...props} height='calc(100vh - 442px)'
+		<Flex {...props} height='calc(100vh - 465.1167px)'
 			pb='160px'
 		>
 			<div className="mixed-chart" style={{ width: '100%', height: '100%' }}>

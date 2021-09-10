@@ -5,10 +5,10 @@ export default {
 		},
 		tab: {
 			_selected: {
-				color: 'red',
+				borderBottomColor: '#ff7789!important',
 			},
 			_focus: {
-				boxShadow: '0 0 0 3px #7b7ce0',
+				boxShadow: 'none',
 			},
 		},
 	},

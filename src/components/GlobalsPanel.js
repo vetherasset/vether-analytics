@@ -40,7 +40,7 @@ export const GlobalsPanel = (props) => {
 							<Box
 								textAlign='center'
 								key={index}>
-								<Box fontSize='1.6rem' fontWeight='normal'>
+								<Box fontSize='1.8rem' fontWeight='normal'>
 									{(() => {
 										switch (global.id) {
 										case 'emission': return prettifyNumber(BigNumber(global.value).div(1e18), 0, 0)
@@ -51,15 +51,15 @@ export const GlobalsPanel = (props) => {
 										}
 									})()}
 								</Box>
-								<Box fontSize='0.8rem' fontWeight='normal' opacity='0.7'>
+								<Box fontSize='0.68rem' textTransform='uppercase' fontWeight='bold' opacity='0.64'>
 									{(() => {
 										switch (global.id) {
 										case 'currentDay': return 'Current Day'
 										case 'currentEra': return 'Current Era'
-										case 'emission': return 'Emission'
-										case 'totalBurnt': return 'Total Burnt'
-										case 'totalEmitted': return 'Total Emitted'
-										case 'totalFees': return 'Total Fees'
+										case 'emission': return 'Veth Emission'
+										case 'totalBurnt': return 'Total Ether Burnt'
+										case 'totalEmitted': return 'Total Veth Emitted'
+										case 'totalFees': return 'Total Veth Fees'
 										default: return global.id
 										}
 									})()}

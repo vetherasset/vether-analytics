@@ -18,19 +18,43 @@ const App = () => {
 					<Header width='100%'
 						p='1.2rem 1rem'
 						justifyContent='center'/>
-					<Tabs isLazy>
+					<Tabs
+						colorScheme='white'
+						isLazy>
 						<TabList
-							p='0 1rem'
+							p='0 1rem 0.4rem'
 						>
-							<Tab>Value Burnt</Tab>
-							<Tab>Holder Accounts</Tab>
+							<Tab
+								minW='233px'
+								flexDir='column'
+							>
+								<div style={{
+									textTransform: 'uppercase',
+									fontSize: '0.78rem',
+									fontWeight: 'bold',
+									opacity: '0.6',
+								}}>Total</div>
+								<div>Value Burnt</div>
+							</Tab>
+							<Tab
+								minW='235px'
+								flexDir='column'
+							>
+								<div style={{
+									textTransform: 'uppercase',
+									fontWeight: 'bold',
+									fontSize: '0.78rem',
+									opacity: '0.6',
+								}}>Total</div>
+								<div>Holder Accounts</div>
+							</Tab>
 						</TabList>
 						<Box
 							h='auto'
 							bg='rgb(42, 42, 42)'
 							borderRadius='1.4rem'
 							m='1rem'
-							p='3.4rem 2.3rem 3rem'>
+							p='3.4rem 2.3rem 3.3rem'>
 							<GlobalsPanel pb='4rem' minH='121.6px'/>
 							<TabPanels>
 								<TabPanel>
