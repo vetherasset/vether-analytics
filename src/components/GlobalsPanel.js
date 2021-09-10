@@ -40,7 +40,19 @@ export const GlobalsPanel = (props) => {
 							<Box
 								textAlign='center'
 								key={index}>
-								<Box fontSize='1.8rem' fontWeight='normal'>
+								<Box
+									color={(() => {
+										switch (global.id) {
+										case 'currentDay': return '#ff9451'
+										case 'currentEra': return '#ff9451'
+										case 'emission': return '#ff9451'
+										case 'totalBurnt': return '#ff596f'
+										case 'totalFees': return '#f6a'
+										default: return global.value
+										}
+									})()}
+									fontSize='1.8rem'
+									fontWeight='normal'>
 									{(() => {
 										switch (global.id) {
 										case 'emission': return prettifyNumber(BigNumber(global.value).div(1e18), 0, 0)

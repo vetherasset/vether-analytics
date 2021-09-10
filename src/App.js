@@ -55,7 +55,9 @@ const App = () => {
 							borderRadius='1.4rem'
 							m='1rem'
 							p='3.4rem 2.3rem 3.3rem'>
-							<GlobalsPanel pb='4rem' minH='121.6px'/>
+							<GlobalsPanel
+								pt='0.3rem'
+								minH='121.6px'/>
 							<TabPanels>
 								<TabPanel>
 									<BurnChart/>
