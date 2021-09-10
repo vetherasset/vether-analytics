@@ -13,6 +13,7 @@ import { extendTheme } from '@chakra-ui/react'
 import defaults from '../../common/defaults'
 import spinner from './spinner'
 import fonts from './fonts'
+import tabs from './tabs'
 
 const overrides = {
 	config: {
@@ -67,6 +68,7 @@ const overrides = {
 		MenuItem: menuitem,
 		Link: link,
 		Spinner: spinner,
+		Tabs: tabs,
 		Toast: {
 			minWidth: '440px',
 			baseStyle: {

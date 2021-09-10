@@ -1,10 +1,10 @@
 import React from 'react'
 import { useQuery, gql } from '@apollo/client'
-import { Flex } from '@chakra-ui/react'
+import { Flex, Heading } from '@chakra-ui/react'
 import BigNumber from 'bignumber.js'
 import Chart from 'react-apexcharts'
 
-const BurnChart = props => {
+export const BurnChart = props => {
 	const eraDayUnits = gql`
 		query {
 			eraDayUnits(first: 1000) {
@@ -102,8 +102,22 @@ const BurnChart = props => {
 	}
 
 	return (
-		<Flex {...props} width="80%" margin="auto" marginBottom="100px" >
-			<div className="mixed-chart" style={{ width: '100%' }}>
+		<Flex {...props} height='calc(100vh - 442px)'
+			pb='160px'
+		>
+			<div className="mixed-chart" style={{ width: '100%', height: '100%' }}>
+				<Heading
+					as='h4'
+					size='xs'
+					fontWeight='normal'
+					fontStyle='italic'
+					lineHeight='1'
+					marginInlineStart='1.1rem'
+					mb='5px'
+					opacity='0.8'
+					textStyle='noLigs'>
+					Amount of Ether burnt daily
+				</Heading>
 				<Chart
 					options={state.options1}
 					series={state.options1.series}
@@ -116,12 +130,10 @@ const BurnChart = props => {
 					series={state.options2.series}
 					type="bar"
 					width="100%"
-					height="30%"
+					height="140px"
 					style={{ opacity: '0.3' }}
 				/>
 			</div>
 		</Flex>
 	)
 }
-
-export default BurnChart

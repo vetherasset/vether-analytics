@@ -1,4 +1,7 @@
 export default {
+	noLigs: {
+		fontVariantLigatures: 'none',
+	},
 	button: {
 		fontFamily: 'Button',
 		fontWeight: 'semibold',

@@ -4,7 +4,7 @@ import { Flex } from '@chakra-ui/react'
 import BigNumber from 'bignumber.js'
 import Chart from 'react-apexcharts'
 
-const HolderChart = props => {
+export const HolderChart = props => {
 	const holders = gql`
 		query {
 			accounts(first: 300, orderBy: balance, orderDirection: desc) {
@@ -93,5 +93,3 @@ const HolderChart = props => {
 		</Flex>
 	)
 }
-
-export default HolderChart

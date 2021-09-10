@@ -8,7 +8,7 @@ import reportWebVitals from './reportWebVitals'
 import * as serviceWorker from './serviceWorker'
 
 const client = new ApolloClient({
-	uri: 'https://api.thegraph.com/subgraphs/name/satoshi-naoki/vether',
+	uri: defaults.api.graphql,
 	cache: new InMemoryCache(),
 })
 
@@ -17,7 +17,7 @@ ReactDOM.render(
 		<ColorModeScript initialColorMode={defaults.theme.mode} />
 		<ApolloProvider client={client}>
 			<App />
-		</ApolloProvider>,
+		</ApolloProvider>
 	</StrictMode>,
 	document.getElementById('root'),
 )

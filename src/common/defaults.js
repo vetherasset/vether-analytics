@@ -1,5 +1,8 @@
 const defaults = {}
 
+defaults.api = {}
+defaults.api.graphql = 'https://api.thegraph.com/subgraphs/name/satoshi-naoki/vether'
+
 defaults.layout = {}
 defaults.layout.width = '768px'
 
