@@ -27,6 +27,8 @@ export const GlobalsPanel = (props) => {
 
 	const { data } = useQuery(globals)
 
+	const globalsColors = false
+
 	return (
 		<Flex {...props}>
 			<Stack
@@ -42,13 +44,15 @@ export const GlobalsPanel = (props) => {
 								key={index}>
 								<Box
 									color={(() => {
-										switch (global.id) {
-										case 'currentDay': return '#ff9451'
-										case 'currentEra': return '#ff9451'
-										case 'emission': return '#ff9451'
-										case 'totalBurnt': return '#ff596f'
-										case 'totalFees': return '#f6a'
-										default: return global.value
+										if (globalsColors === true) {
+											switch (global.id) {
+											case 'currentDay': return '#ff9451'
+											case 'currentEra': return '#ff9451'
+											case 'emission': return '#ff9451'
+											case 'totalBurnt': return '#ff596f'
+											case 'totalFees': return '#f6a'
+											default: return false
+											}
 										}
 									})()}
 									fontSize='1.8rem'
