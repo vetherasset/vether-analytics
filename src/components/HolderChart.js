@@ -1,13 +1,17 @@
 import React from 'react'
 import { useQuery, gql } from '@apollo/client'
-import { Flex } from '@chakra-ui/react'
+import { Flex, Box } from '@chakra-ui/react'
 import BigNumber from 'bignumber.js'
 import Chart from 'react-apexcharts'
 
 export const HolderChart = props => {
 	const holders = gql`
 		query {
-			accounts(first: 300, orderBy: balance, orderDirection: desc) {
+			accounts(
+				first: 300,
+				orderBy: balance,
+				orderDirection: desc
+			) {
 				address
 				balance
 			}
@@ -38,19 +42,37 @@ export const HolderChart = props => {
 			id: 'holders',
 			type: 'pie',
 		},
-		theme: {
-			monochrome: {
-				enabled: true,
-			},
-		},
 		stroke: {
-			colors: ['#FF0080'],
+			colors: ['#ff596f'],
 			width: 2,
 		},
 		fill: {
-			colors: ['#00000000'],
+			colors: ['#00000020'],
+		},
+		theme: {
+			theme: 'dark',
+			monochrome: {
+				enabled: true,
+				color: '#ff596f',
+				shadeTo: 'dark',
+				shadeIntensity: '0.2',
+			},
 		},
 		tooltip: {
+			custom: function({ series, seriesIndex, w }) {
+				return `
+					<div class="arrow_box"
+						style="background: rgba(30, 30, 30, 0.8); font-size: 1rem; text-align: center;
+						padding: 3px 12px;">
+						<div>${w.globals.labels[seriesIndex]}</div>
+						<div style="font-weight: bold;">${Number(series[seriesIndex]).toFixed(1)}%</div>
+					</div>
+				`
+			},
+			style: {
+				fontSize: '12px',
+				fontFamily: undefined,
+			},
 			y: {
 				formatter(val) {
 					return val + '%'
@@ -63,9 +85,6 @@ export const HolderChart = props => {
 					offset: -5,
 				},
 			},
-		},
-		title: {
-			text: 'Holders',
 		},
 		dataLabels: {
 			formatter(val, opts) {
@@ -81,15 +100,20 @@ export const HolderChart = props => {
 	}
 
 	return (
-		<Flex {...props} >
-			<Chart
-				options={options}
-				series={options.series}
-				type="pie"
-				width="600px"
-				height="500px"
-				style={{ margin: 'auto' }}
-			/>
+		<Flex {...props}>
+			<Box
+				height='100%'
+				maxH='533px'>
+				<Chart
+					options={options}
+					series={options.series}
+					type="pie"
+					width="533px"
+					height='100%'
+					maxHeight="533px"
+					style={{ margin: 'auto' }}
+				/>
+			</Box>
 		</Flex>
 	)
 }

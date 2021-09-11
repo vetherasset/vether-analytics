@@ -102,9 +102,7 @@ export const BurnChart = props => {
 	}
 
 	return (
-		<Flex {...props} height='calc(100vh - 465.1167px)'
-			pb='160px'
-		>
+		<Flex {...props}>
 			<div className="mixed-chart" style={{ width: '100%', height: '100%' }}>
 				<Heading
 					as='h4'
