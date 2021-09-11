@@ -46,7 +46,7 @@ const App = () => {
 									fontWeight: 'bold',
 									fontSize: '0.78rem',
 									opacity: '0.6',
-								}}>Total</div>
+								}}>Top</div>
 								<div>Holder Accounts</div>
 							</Tab>
 						</TabList>
