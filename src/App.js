@@ -73,7 +73,7 @@ const App = () => {
 									justifyContent='center'
 								>
 									<Flex
-										width='55%'
+										width='52%'
 										flexDir='column'>
 										<Heading
 											as='h4'
@@ -95,7 +95,7 @@ const App = () => {
 										/>
 									</Flex>
 									<Flex
-										width='45%'>
+										width='48%'>
 										Accounts Table
 									</Flex>
 								</TabPanel>

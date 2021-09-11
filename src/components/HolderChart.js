@@ -108,9 +108,9 @@ export const HolderChart = props => {
 					options={options}
 					series={options.series}
 					type="pie"
-					width="533px"
+					width="733px"
 					height='100%'
-					maxHeight="533px"
+					maxHeight="733px"
 					style={{ margin: 'auto' }}
 				/>
 			</Box>
