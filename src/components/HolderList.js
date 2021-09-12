@@ -56,6 +56,7 @@ export const HolderList = (props) => {
 		return (
 			<Button
 				variant='ghost'
+				key={pageNumber}
 				color={page == pageNumber ? 'vether.200' : 'white'}
 				textDecor={page == pageNumber ? 'underline' : 'none'}
 				style={{
@@ -98,10 +99,10 @@ export const HolderList = (props) => {
 								</Tr>
 							)
 						})}
-						{loading && [...Array(holdersPerPage)].map((index) => {
+						{loading && [...Array(holdersPerPage)].map((_item, index) => {
 							return(
 								<Tr
-									key={index}
+									key={Number(index + 1)}
 									height='33px'
 								>
 									<Td w='100%'></Td>
@@ -119,7 +120,7 @@ export const HolderList = (props) => {
 					mt='17px'>
 					{ paginationButton(page - 1, <ChevronLeftIcon/>, page > 0) }
 					{
-						[...Array(pageCount)].map((key, index) => {
+						[...Array(pageCount)].map((_key, index) => {
 							if ((page < 4 && index < 5) || (page > pageCount - 5 && index > pageCount - 6)
 								|| index == 0 || index == pageCount - 1
 								|| index == page - 1 || index == page || index == page + 1) {
