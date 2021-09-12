@@ -110,7 +110,6 @@ export const HolderChart = props => {
 					type="pie"
 					width="733px"
 					height='100%'
-					maxHeight="733px"
 					style={{ margin: 'auto' }}
 				/>
 			</Box>

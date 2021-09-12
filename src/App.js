@@ -7,6 +7,7 @@ import { Footer } from './components/Footer'
 import { BurnChart } from './components/BurnChart'
 import { GlobalsPanel } from './components/GlobalsPanel'
 import { HolderChart } from './components/HolderChart'
+import { HolderList } from './components/HolderList'
 
 const App = () => {
 
@@ -73,7 +74,7 @@ const App = () => {
 									justifyContent='center'
 								>
 									<Flex
-										width='52%'
+										width='49%'
 										flexDir='column'>
 										<Heading
 											as='h4'
@@ -85,7 +86,7 @@ const App = () => {
 											mb='5px'
 											opacity='0.8'
 											textStyle='noLigs'>
-					Top Holder Accounts
+												Top Holder Accounts
 										</Heading>
 										<HolderChart
 											flexDirection='column'
@@ -95,8 +96,12 @@ const App = () => {
 										/>
 									</Flex>
 									<Flex
-										width='48%'>
-										Accounts Table
+										width='51%'
+										alignItems='center'>
+										<HolderList
+											width='100%'
+											justifyContent='center'
+										/>
 									</Flex>
 								</TabPanel>
 							</TabPanels>
