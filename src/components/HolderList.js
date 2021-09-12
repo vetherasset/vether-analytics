@@ -72,11 +72,11 @@ export const HolderList = (props) => {
 							return(
 								<Tr
 									key={index}
-									height='53px'
+									height='33px'
 								>
-									<Td></Td>
-									<Td isNumeric></Td>
-									<Td isNumeric></Td>
+									<Td w='100%'></Td>
+									<Td w='100%' isNumeric></Td>
+									<Td w='100%' isNumeric></Td>
 								</Tr>
 							)
 						})}

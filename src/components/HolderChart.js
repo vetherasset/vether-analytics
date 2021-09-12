@@ -59,6 +59,7 @@ export const HolderChart = props => {
 			},
 		},
 		tooltip: {
+			theme: 'dark',
 			custom: function({ series, seriesIndex, w }) {
 				return `
 					<div class="arrow_box"
@@ -82,7 +83,7 @@ export const HolderChart = props => {
 		plotOptions: {
 			pie: {
 				dataLabels: {
-					offset: -5,
+					offset: -35,
 				},
 			},
 		},

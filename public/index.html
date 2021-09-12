@@ -22,6 +22,14 @@
       html {
         background: #000;
       }
+      /* There's bug in Pie chart using light instead of dark theme at certain times so force override it.*/
+      .apexcharts-tooltip.apexcharts-theme-light {
+        background: rgba(30, 30, 30, 0.8)!important;
+        border: 0!important;
+        font-size: 1rem!important;
+        text-align: center!important;
+        padding: 3px 12px!important;
+      }
       /* sequel pro */
       @font-face {
         font-family: 'Heading';
