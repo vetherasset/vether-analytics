@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useQuery, gql } from '@apollo/client'
 import { Flex, Table, Thead, Tr, Th, Tbody, Td, Button } from '@chakra-ui/react'
 import BigNumber from 'bignumber.js'
@@ -7,10 +7,10 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 
 export const HolderList = (props) => {
 
-	const [page, setSkip] = useState(0)
-	const holdersPerPage = 10
-	let holderCount = 0
-	let pageCount = 0
+	const [page, setPage] = useState(0)
+	const [holdersPerPage] = useState(10)
+	const [holderCount, setHolderCount] = useState(0)
+	const [pageCount, setPageCount] = useState(0)
 
 	const holders = gql`
 		query {
@@ -43,21 +43,28 @@ export const HolderList = (props) => {
 				percentage: percentage,
 			})
 		}
-		holderCount = Number(data.globals[0].value)
-		pageCount = Math.ceil(holderCount / holdersPerPage)
 	}
+
+	useEffect(() => {
+		if(data) {
+			setHolderCount(Number(data.globals[0].value))
+			setPageCount(Math.ceil(data.globals[0].value / holdersPerPage))
+		}
+	}, [data])
 
 	const paginationButton = (pageNumber, name, enabled = true) => {
 		return (
 			<Button
 				variant='ghost'
+				color={page == pageNumber ? 'vether.200' : 'white'}
+				textDecor={page == pageNumber ? 'underline' : 'none'}
 				style={{
 					boxShadow: 'none',
 					fontWeight: page == pageNumber ? 'bold' : 'normal',
 					width: '50px',
 				}}
 				disabled={ !enabled }
-				onClick={() => { setSkip(Number(pageNumber)) }}>
+				onClick={() => { setPage(Number(pageNumber)) }}>
 				{ name }
 			</Button>
 		)
