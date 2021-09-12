@@ -16,13 +16,13 @@ export const BurnChart = props => {
 	`
 
 	const { data } = useQuery(eraDayUnits)
-	const startDate = new Date('02 Jul 2020 10:00:00').getTime()
+	const startDate = 1589271741000
 	const chartData = []
 
 	if (data) {
 		for (const eraDay of data.eraDayUnits) {
 			const { era, day, units } = eraDay
-			const continuedDay = (Number(era) - 1) * 244 + Number(day) - 51
+			const continuedDay = (Number(era) - 1) * 244 + Number(day)
 			chartData.push([
 				startDate + continuedDay * 86400000,
 				new BigNumber(units).div(1e18).toFixed(2),
