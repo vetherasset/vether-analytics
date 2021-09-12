@@ -7,16 +7,16 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 
 export const HolderList = (props) => {
 
-	const [skip, setSkip] = useState(1)
-	const holderPerPage = 10
+	const [page, setSkip] = useState(0)
+	const holdersPerPage = 10
 	let holderCount = 0
 	let pageCount = 0
 
 	const holders = gql`
 		query {
 			accounts(
-				first: ${holderPerPage},
-				skip: ${skip * holderPerPage}
+				first: ${holdersPerPage},
+				skip: ${page * holdersPerPage}
 				orderBy: balance,
 				orderDirection: desc
 			) {
@@ -44,20 +44,20 @@ export const HolderList = (props) => {
 			})
 		}
 		holderCount = Number(data.globals[0].value)
-		pageCount = Math.ceil(holderCount / holderPerPage)
+		pageCount = Math.ceil(holderCount / holdersPerPage)
 	}
 
-	const paginationButton = (page, name, enabled = true) => {
+	const paginationButton = (pageNumber, name, enabled = true) => {
 		return (
 			<Button
 				variant='ghost'
 				style={{
 					boxShadow: 'none',
-					fontWeight: skip == page ? 'bold' : 'normal',
+					fontWeight: page == pageNumber ? 'bold' : 'normal',
 					width: '50px',
 				}}
 				disabled={ !enabled }
-				onClick={() => { setSkip(Number(page)) }}>
+				onClick={() => { setSkip(Number(pageNumber)) }}>
 				{ name }
 			</Button>
 		)
@@ -91,7 +91,7 @@ export const HolderList = (props) => {
 								</Tr>
 							)
 						})}
-						{loading && [...Array(holderPerPage)].map((index) => {
+						{loading && [...Array(holdersPerPage)].map((index) => {
 							return(
 								<Tr
 									key={index}
@@ -110,29 +110,29 @@ export const HolderList = (props) => {
 					alignItems='center'
 					justifyContent='center'
 					mt='17px'>
-					{ paginationButton(skip - 1, <ChevronLeftIcon/>, skip > 0) }
+					{ paginationButton(page - 1, <ChevronLeftIcon/>, page > 0) }
 					{
 						[...Array(pageCount)].map((key, index) => {
-							if ((skip < 4 && index < 5) || (skip > pageCount - 5 && index > pageCount - 6)
+							if ((page < 4 && index < 5) || (page > pageCount - 5 && index > pageCount - 6)
 								|| index == 0 || index == pageCount - 1
-								|| index == skip - 1 || index == skip || index == skip + 1) {
+								|| index == page - 1 || index == page || index == page + 1) {
 								return paginationButton(index, index + 1)
 							}
-							else if (index == skip - 2) {
+							else if (index == page - 2) {
 								return paginationButton(index, '...')
 							}
-							else if (index == pageCount - 6 && skip > pageCount - 5) {
+							else if (index == pageCount - 6 && page > pageCount - 5) {
 								return paginationButton(index, '...')
 							}
-							else if (index == skip + 2) {
+							else if (index == page + 2) {
 								return paginationButton(index, '...')
 							}
-							else if (index == 5 && skip < 4) {
+							else if (index == 5 && page < 4) {
 								return paginationButton(index, '...')
 							}
 						})
 					}
-					{ paginationButton(skip + 1, <ChevronRightIcon/>, (skip + 1) * holderPerPage < holderCount - 1) }
+					{ paginationButton(page + 1, <ChevronRightIcon/>, (page + 1) * holdersPerPage < holderCount - 1) }
 				</Flex>
 			</Flex>
 		</Flex>
