@@ -77,7 +77,9 @@ export const HolderList = (props) => {
 			<Flex
 				overflowX='auto'
 				flexDir='column'
-				w='100%'>
+				w='100%'
+				min-height='674px'
+				justifyContent='center'>
 				<Table
 					variant='striped'
 					colorScheme='gray'
