@@ -36,6 +36,12 @@ export const BurnChart = props => {
 	}
 	chartData.sort()
 
+	const eraDayFormatter = (value) => {
+		const era = Math.floor(value / 244)
+		const day = Math.floor(value % 244)
+		return `${era} / ${day}`
+	}
+
 	const state = {
 		options1: {
 			chart: {
@@ -72,9 +78,7 @@ export const BurnChart = props => {
 			xaxis: {
 				type: chartInDate ? 'datetime' : 'numeric',
 				labels: {
-					formatter: chartInDate ? undefined : function(value) {
-						return `${Math.floor(value / 244)} / ${Math.floor(value % 244)}`
-					},
+					formatter: chartInDate ? undefined : eraDayFormatter,
 				},
 				axisBorder: { show: false },
 				axisTicks: { show: false },
@@ -98,8 +102,8 @@ export const BurnChart = props => {
 						opacity: 0.4,
 					},
 					xaxis: {
-						min: chartData[0][0] - 2,
-						max: chartData[chartData.length - 1][0] + 2,
+						min: chartData[0][0],
+						max: chartData[chartData.length - 1][0],
 					},
 				},
 			},
@@ -110,9 +114,7 @@ export const BurnChart = props => {
 				type: chartInDate ? 'datetime' : 'numeric',
 				tickAmount: 30,
 				labels: {
-					formatter: chartInDate ? undefined : function(value) {
-						return `${Math.floor(value / 244)} / ${Math.floor(value % 244)}`
-					},
+					formatter: chartInDate ? undefined : eraDayFormatter,
 				},
 			},
 			yaxis: { tickAmount: 2 },
