@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { useQuery, gql } from '@apollo/client'
-import { Flex, Heading, Button } from '@chakra-ui/react'
+import { Flex, Heading } from '@chakra-ui/react'
 import BigNumber from 'bignumber.js'
 import Chart from 'react-apexcharts'
 
 export const BurnChart = props => {
-	const [chartInDate, setChartType] = useState(true)
+	const [chartInDate] = useState(false)
 
 	const eraDayUnits = gql`
 		query {
@@ -39,7 +39,7 @@ export const BurnChart = props => {
 	const eraDayFormatter = (value) => {
 		const era = Math.floor(value / 244)
 		const day = Math.floor(value % 244)
-		return `${era} / ${day}`
+		return `${day}/${era}`
 	}
 
 	const state = {
@@ -136,12 +136,12 @@ export const BurnChart = props => {
 					opacity='0.8'
 					textStyle='noLigs'>
 					Amount of Ether burnt daily
-					<Button
+					{/* <Button
 						variant='ghost'
 						marginLeft='auto'
 						onClick={ () => { setChartType(!chartInDate) } }>
 						{ chartInDate ? 'Date' : 'Era / Day'}
-					</Button>
+					</Button> */}
 				</Heading>
 				<Chart
 					options={state.options1}
