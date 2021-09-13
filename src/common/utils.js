@@ -1,5 +1,5 @@
-const prettifyAddress = (address) => {
-	return `${address.substring(0, 7)}...${address.substring(address.length - 4, address.length)}`
+const prettifyAddress = (address, characters = 7) => {
+	return `${address.substring(0, characters)}...${address.substring(address.length - 4, address.length)}`
 }
 
 const prettifyCurrency = (amount, minFractionDigits = 0, maxFractionDigits = 2, currency = 'USD', locales = 'en-US') => {
