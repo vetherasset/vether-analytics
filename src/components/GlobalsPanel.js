@@ -13,9 +13,9 @@ export const GlobalsPanel = (props) => {
 					"currentDay"
 					"currentEra"
 					"emission"
-					"excludeCount"
 					"totalBurnt"
 					"totalEmitted"
+					"holderCount"
 					"totalFees"
 				] }
 			) {
@@ -62,6 +62,7 @@ export const GlobalsPanel = (props) => {
 										case 'emission': return prettifyNumber(BigNumber(global.value).div(1e18), 0, 0)
 										case 'totalBurnt': return prettifyNumber(BigNumber(global.value).div(1e18), 0, 2)
 										case 'totalEmitted': return prettifyNumber(BigNumber(global.value).div(1e18).toFixed(0))
+										case 'holderCount': return prettifyNumber(BigNumber(global.value).toFixed(0))
 										case 'totalFees': return prettifyNumber(BigNumber(global.value).div(1e18), 0, 2)
 										default: return global.value
 										}
@@ -75,6 +76,7 @@ export const GlobalsPanel = (props) => {
 										case 'emission': return 'Veth Emission'
 										case 'totalBurnt': return 'Total Ether Burnt'
 										case 'totalEmitted': return 'Total Veth Emitted'
+										case 'holderCount': return 'Total Holders'
 										case 'totalFees': return 'Total Veth Fees'
 										default: return global.id
 										}
