@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery, gql } from '@apollo/client'
-import { Flex, Heading } from '@chakra-ui/react'
+import { Flex, Heading, Button } from '@chakra-ui/react'
 import BigNumber from 'bignumber.js'
 import Chart from 'react-apexcharts'
 
 export const BurnChart = props => {
+	const [chartInDate, setChartType] = useState(true)
+
 	const eraDayUnits = gql`
 		query {
 			eraDayUnits(first: 1000) {
@@ -24,10 +26,13 @@ export const BurnChart = props => {
 			const { era, day, units } = eraDay
 			const continuedDay = (Number(era) - 1) * 244 + Number(day)
 			chartData.push([
-				startDate + continuedDay * 86400000,
+				chartInDate ? startDate + continuedDay * 86400000 : (Number(era) * 244 + Number(day)),
 				new BigNumber(units).div(1e18).toFixed(2),
 			])
 		}
+	}
+	else {
+		chartData.push([0, 0])
 	}
 	chartData.sort()
 
@@ -65,7 +70,12 @@ export const BurnChart = props => {
 			series: [{ name: 'Amount', data: chartData }],
 			tooltip: { theme: 'dark' },
 			xaxis: {
-				type: 'datetime',
+				type: chartInDate ? 'datetime' : 'numeric',
+				labels: {
+					formatter: chartInDate ? undefined : function(value) {
+						return `${Math.floor(value / 244)} / ${Math.floor(value % 244)}`
+					},
+				},
 				axisBorder: { show: false },
 				axisTicks: { show: false },
 			},
@@ -88,15 +98,23 @@ export const BurnChart = props => {
 						opacity: 0.4,
 					},
 					xaxis: {
-						min: startDate,
-						max: startDate + chartData.length * 86400000,
+						min: chartData[0][0] - 2,
+						max: chartData[chartData.length - 1][0] + 2,
 					},
 				},
 			},
 			colors: ['#ff596f'],
 			series: [{ data: chartData }],
 			stroke: { width: 2 },
-			xaxis: { type: 'datetime' },
+			xaxis: {
+				type: chartInDate ? 'datetime' : 'numeric',
+				tickAmount: 30,
+				labels: {
+					formatter: chartInDate ? undefined : function(value) {
+						return `${Math.floor(value / 244)} / ${Math.floor(value % 244)}`
+					},
+				},
+			},
 			yaxis: { tickAmount: 2 },
 		},
 	}
@@ -112,9 +130,16 @@ export const BurnChart = props => {
 					lineHeight='1'
 					marginInlineStart='1.1rem'
 					mb='5px'
+					display='flex'
 					opacity='0.8'
 					textStyle='noLigs'>
 					Amount of Ether burnt daily
+					<Button
+						variant='ghost'
+						marginLeft='auto'
+						onClick={ () => { setChartType(!chartInDate) } }>
+						{ chartInDate ? 'Date' : 'Era / Day'}
+					</Button>
 				</Heading>
 				<Chart
 					options={state.options1}
