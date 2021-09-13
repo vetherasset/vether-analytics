@@ -113,6 +113,7 @@ const AnalyticsTabs = (props) => {
 							<Heading
 								as='h4'
 								size='xs'
+								width={{ base: '100%', lg: 'auto' }}
 								fontWeight='normal'
 								fontStyle='italic'
 								lineHeight='1'

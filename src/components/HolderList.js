@@ -72,8 +72,11 @@ export const HolderList = (props) => {
 	}
 
 	return (
-		<Flex {...props}>
+		<Flex {...props}
+			flexDir='row'
+			flexWrap='wrap'>
 			<Flex
+				overflowX='auto'
 				flexDir='column'
 				w='100%'>
 				<Table
@@ -114,35 +117,35 @@ export const HolderList = (props) => {
 						})}
 					</Tbody>
 				</Table>
-				<Flex
-					flexDir='row'
-					alignItems='center'
-					justifyContent='center'
-					mt='17px'>
-					{ paginationButton(page - 1, <ChevronLeftIcon/>, page > 0) }
-					{
-						[...Array(pageCount)].map((_key, index) => {
-							if ((page < 4 && index < 5) || (page > pageCount - 5 && index > pageCount - 6)
+			</Flex>
+			<Flex
+				flexDir='row'
+				alignItems='center'
+				justifyContent='center'
+				mt='17px'>
+				{ paginationButton(page - 1, <ChevronLeftIcon/>, page > 0) }
+				{
+					[...Array(pageCount)].map((_key, index) => {
+						if ((page < 4 && index < 5) || (page > pageCount - 5 && index > pageCount - 6)
 								|| index == 0 || index == pageCount - 1
 								|| index == page - 1 || index == page || index == page + 1) {
-								return paginationButton(index, index + 1)
-							}
-							else if (index == page - 2) {
-								return paginationButton(index, '...')
-							}
-							else if (index == pageCount - 6 && page > pageCount - 5) {
-								return paginationButton(index, '...')
-							}
-							else if (index == page + 2) {
-								return paginationButton(index, '...')
-							}
-							else if (index == 5 && page < 4) {
-								return paginationButton(index, '...')
-							}
-						})
-					}
-					{ paginationButton(page + 1, <ChevronRightIcon/>, (page + 1) * holdersPerPage < holderCount - 1) }
-				</Flex>
+							return paginationButton(index, index + 1)
+						}
+						else if (index == page - 2) {
+							return paginationButton(index, '...')
+						}
+						else if (index == pageCount - 6 && page > pageCount - 5) {
+							return paginationButton(index, '...')
+						}
+						else if (index == page + 2) {
+							return paginationButton(index, '...')
+						}
+						else if (index == 5 && page < 4) {
+							return paginationButton(index, '...')
+						}
+					})
+				}
+				{ paginationButton(page + 1, <ChevronRightIcon/>, (page + 1) * holdersPerPage < holderCount - 1) }
 			</Flex>
 		</Flex>
 	)
