@@ -22,16 +22,11 @@ const overrides = {
 	},
 	styles: {
 		global: props => ({
-			html: {
-				scrollbarWidth: 'none',
-			},
 			body: {
 				fontFamily: 'Body',
 				fontSize: '1em',
 				fontWeight: '300',
 				bg: mode('#ffffff', '#000000')(props),
-				'-ms-overflow-style': 'none',
-				'scrollbar-width': 'none',
 			},
 			'html::-webkit-scrollbar': {
 				display: 'none',
