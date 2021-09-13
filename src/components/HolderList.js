@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useQuery, gql } from '@apollo/client'
 import { Flex, Table, Thead, Tr, Th, Tbody, Td, Button } from '@chakra-ui/react'
 import BigNumber from 'bignumber.js'
-import { prettifyNumber } from '../common/utils'
+import { prettifyNumber, prettifyAddress } from '../common/utils'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 
 export const HolderList = (props) => {
@@ -93,9 +93,10 @@ export const HolderList = (props) => {
 						{tableData && tableData.map((account, index) => {
 							return (
 								<Tr key={index}>
-									<Td>{account.address}</Td>
-									<Td isNumeric>{prettifyNumber(Number(account.percentage), 0, 5)}%</Td>
-									<Td isNumeric>{prettifyNumber(BigNumber(account.balance).div(1e18), 0, 5)}</Td>
+									<Td display={{ base: 'block', md: 'none' }}>{prettifyAddress(account.address, 2)}</Td>
+									<Td display={{ base: 'none', md: 'block' }}>{account.address}</Td>
+									<Td isNumeric>{prettifyNumber(Number(account.percentage), 0, 3)}%</Td>
+									<Td isNumeric>{prettifyNumber(BigNumber(account.balance).div(1e18), 0, 3)}</Td>
 								</Tr>
 							)
 						})}

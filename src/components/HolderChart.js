@@ -104,12 +104,14 @@ export const HolderChart = props => {
 		<Flex {...props}>
 			<Box
 				height='100%'
-				maxH='533px'>
+				maxH={{ base: '303px', sm: '433px', lg: '533px' }}
+				width={{ base: '403px', sm: '533px', lg: '533px' }}
+			>
 				<Chart
 					options={options}
 					series={options.series}
-					type="pie"
-					width="733px"
+					type='pie'
+					width='100%'
 					height='100%'
 					style={{ margin: 'auto' }}
 				/>

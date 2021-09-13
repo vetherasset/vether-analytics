@@ -101,11 +101,14 @@ const AnalyticsTabs = (props) => {
 					<TabPanel
 						display='flex'
 						flexDir='row'
+						flexWrap={{ base: 'wrap', lg: 'nowrap' }}
 						justifyContent='center'
 					>
 						<Flex
-							width='49%'
-							flexDir='column'>
+							width={{ base: '100%', lg: '49%' }}
+							justifyContent='center'
+							flexWrap='wrap'
+							flexDir={{ base: 'row', lg: 'column' }}>
 							<Heading
 								as='h4'
 								size='xs'
@@ -122,12 +125,14 @@ const AnalyticsTabs = (props) => {
 								flexDirection='column'
 								justifyContent='center'
 								alignItems='center'
-								height='calc(100vh - 484.1167px)'
+								height={{ base: '401px', lg: 'calc(100vh - 484.1167px)' }}
 							/>
 						</Flex>
 						<Flex
-							width='51%'
-							alignItems='center'>
+							width={{ base: '100%', lg: '51%' }}
+							flexDir={{ base: 'row', lg: 'column' }}
+							alignItems='center'
+							justifyContent='center'>
 							<HolderList
 								width='100%'
 								justifyContent='center'
