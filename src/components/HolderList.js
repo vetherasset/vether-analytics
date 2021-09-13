@@ -76,9 +76,10 @@ export const HolderList = (props) => {
 			flexWrap='wrap'>
 			<Flex
 				overflowX='auto'
+				overflowY='hidden'
 				flexDir='column'
 				w='100%'
-				min-height='674px'
+				minHeight='357px'
 				justifyContent='center'>
 				<Table
 					variant='striped'
