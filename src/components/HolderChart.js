@@ -104,7 +104,7 @@ export const HolderChart = props => {
 		<Flex {...props}>
 			<Box
 				height='100%'
-				maxH={{ base: '303px', sm: '433px', lg: '500px' }}
+				maxH={{ base: '303px', lg: '500px' }}
 				width='100%'
 			>
 				<Chart
