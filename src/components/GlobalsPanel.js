@@ -32,7 +32,7 @@ export const GlobalsPanel = (props) => {
 	return (
 		<Flex {...props}>
 			<Stack
-				direction={['column', 'row']}
+				flexDir={{ base: 'column', lg: 'row' }}
 				w='100%'
 				p={{ base: '0 0', md: '0 4rem' }}
 				mb={{ base: '3rem', sm: '0' }}
@@ -42,7 +42,9 @@ export const GlobalsPanel = (props) => {
 						return (
 							<Box
 								textAlign='center'
-								key={index}>
+								key={index}
+								marginTop='0px!important'
+							>
 								<Box
 									color={(() => {
 										if (globalsColors === true) {
