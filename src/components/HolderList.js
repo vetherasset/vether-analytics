@@ -62,7 +62,6 @@ export const HolderList = (props) => {
 				style={{
 					boxShadow: 'none',
 					fontWeight: page == pageNumber ? 'bold' : 'normal',
-					width: '50px',
 				}}
 				disabled={ !enabled }
 				onClick={() => { setPage(Number(pageNumber)) }}>
