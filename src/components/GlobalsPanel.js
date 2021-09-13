@@ -34,7 +34,8 @@ export const GlobalsPanel = (props) => {
 			<Stack
 				direction={['column', 'row']}
 				w='100%'
-				p='0 4rem'
+				p={{ base: '0 0', md: '0 4rem' }}
+				mb={{ base: '3rem', sm: '0' }}
 				justifyContent='space-between'>
 				{data &&
 					data.globals.map((global, index) => {
@@ -55,7 +56,7 @@ export const GlobalsPanel = (props) => {
 											}
 										}
 									})()}
-									fontSize='1.8rem'
+									fontSize={{ base: '1.3rem', sm: '1.3rem', md: '1.8rem' }}
 									fontWeight='normal'>
 									{(() => {
 										switch (global.id) {
@@ -68,7 +69,11 @@ export const GlobalsPanel = (props) => {
 										}
 									})()}
 								</Box>
-								<Box fontSize='0.68rem' textTransform='uppercase' fontWeight='bold' opacity='0.64'>
+								<Box
+									fontSize={{ base: '0.68rem', sm: '0.61rem', md: '0.68rem' }}
+									textTransform='uppercase'
+									fontWeight='bold'
+									opacity='0.64'>
 									{(() => {
 										switch (global.id) {
 										case 'currentDay': return 'Current Day'

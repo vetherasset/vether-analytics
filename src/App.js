@@ -87,7 +87,8 @@ const AnalyticsTabs = (props) => {
 				borderRadius='1.4rem'
 				border='1px solid rgba(255, 255, 255, 0.2)'
 				m='1rem'
-				p='3.4rem 2.3rem 3.3rem'>
+				p={{ base: '3.4rem 0 3.3rem', sm: '3.4rem 2.3rem 3.3rem' }}
+			>
 				<GlobalsPanel
 					pt='0.3rem'
 					minH='121.6px'/>
