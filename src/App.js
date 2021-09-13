@@ -18,7 +18,7 @@ const App = () => {
 					height='100%'
 					flexDir='column'>
 					<Header width='100%'
-						p='1.2rem 1rem'
+						p='1.2rem 1rem 15px'
 						justifyContent='center'/>
 					<Switch>
 						<Route path='/' exact render={() =>
