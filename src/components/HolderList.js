@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useQuery, gql } from '@apollo/client'
-import { Flex, Table, Thead, Tr, Th, Tbody, Td, Button } from '@chakra-ui/react'
+import { Flex, Table, Thead, Tr, Th, Tbody, Td, Button, Box } from '@chakra-ui/react'
 import BigNumber from 'bignumber.js'
 import { prettifyNumber, prettifyAddress } from '../common/utils'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
@@ -98,8 +98,10 @@ export const HolderList = (props) => {
 						{tableData && tableData.map((account, index) => {
 							return (
 								<Tr key={index}>
-									<Td display={{ base: 'block', md: 'none' }}>{prettifyAddress(account.address, 2)}</Td>
-									<Td display={{ base: 'none', md: 'block' }}>{account.address}</Td>
+									<Td>
+										<Box as='span' display={{ base: 'inline-block', md: 'none' }}>{prettifyAddress(account.address, 2)}</Box>
+										<Box as='span' display={{ base: 'none', md: 'inline-block' }}>{account.address}</Box>
+									</Td>
 									<Td isNumeric>{prettifyNumber(Number(account.percentage), 0, 3)}%</Td>
 									<Td isNumeric>{prettifyNumber(BigNumber(account.balance).div(1e18), 0, 3)}</Td>
 								</Tr>
