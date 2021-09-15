@@ -14,27 +14,43 @@ export const BurnChart = props => {
 				day
 				units
 			}
+			eraDayUnitsRemainings(first: 1000) {
+				era
+				day
+				units
+			}
 		}
 	`
 
 	const { data } = useQuery(eraDayUnits)
 	const startDate = 1589271741000
-	const chartData = []
+	const unitsChartData = []
+	const remainingChartData = []
 
 	if (data) {
 		for (const eraDay of data.eraDayUnits) {
 			const { era, day, units } = eraDay
 			const continuedDay = (Number(era) - 1) * 244 + Number(day)
-			chartData.push([
+			unitsChartData.push([
+				chartInDate ? startDate + continuedDay * 86400000 : (Number(era) * 244 + Number(day)),
+				new BigNumber(units).div(1e18).toFixed(2),
+			])
+		}
+		for (const eraDay of data.eraDayUnitsRemainings) {
+			const { era, day, units } = eraDay
+			const continuedDay = (Number(era) - 1) * 244 + Number(day)
+			remainingChartData.push([
 				chartInDate ? startDate + continuedDay * 86400000 : (Number(era) * 244 + Number(day)),
 				new BigNumber(units).div(1e18).toFixed(2),
 			])
 		}
 	}
 	else {
-		chartData.push([0, 0])
+		unitsChartData.push([0, 0])
+		remainingChartData.push([0, 0])
 	}
-	chartData.sort()
+	unitsChartData.sort()
+	remainingChartData.sort()
 
 	const eraDayFormatter = (value) => {
 		const era = Math.floor(value / 244)
@@ -54,7 +70,7 @@ export const BurnChart = props => {
 					show: false,
 				},
 			},
-			colors: ['#ff596f'],
+			colors: ['#ff596f', '#5559bf'],
 			stroke: { width: 2 },
 			grid: {
 				borderColor: '#555',
@@ -73,7 +89,10 @@ export const BurnChart = props => {
 					opacityTo: 0,
 				},
 			},
-			series: [{ name: 'Amount', data: chartData }],
+			series: [
+				{ name: 'Burnt', data: unitsChartData },
+				{ name: 'Remaining', data: remainingChartData },
+			],
 			tooltip: { theme: 'dark' },
 			xaxis: {
 				type: chartInDate ? 'datetime' : 'numeric',
@@ -102,13 +121,16 @@ export const BurnChart = props => {
 						opacity: 0.4,
 					},
 					xaxis: {
-						min: chartData[0][0],
-						max: chartData[chartData.length - 1][0],
+						min: unitsChartData[0][0],
+						max: unitsChartData[unitsChartData.length - 1][0],
 					},
 				},
 			},
-			colors: ['#ff596f'],
-			series: [{ data: chartData }],
+			colors: ['#ff596f', '#5559bf'],
+			series: [
+				{ name: 'Burnt', data: unitsChartData },
+				{ name: 'Remaining', data: remainingChartData },
+			],
 			stroke: { width: 2 },
 			xaxis: {
 				type: chartInDate ? 'datetime' : 'numeric',
