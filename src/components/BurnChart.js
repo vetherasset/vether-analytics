@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useQuery, gql } from '@apollo/client'
-import { Flex, Heading } from '@chakra-ui/react'
+import { Flex, Heading, Select, CheckboxGroup, Checkbox, HStack } from '@chakra-ui/react'
 import BigNumber from 'bignumber.js'
 import Chart from 'react-apexcharts'
+import useLocalStorageState from 'use-local-storage-state'
 
 export const BurnChart = props => {
-	const [chartInDate] = useState(false)
+
+	const [chartInDate, setChartInDate] = useLocalStorageState('chartInDate', 0)
+	const [showUnclaimed, setShowUnclaimed] = useLocalStorageState('showUnclaimed', true)
 
 	const eraDayUnits = gql`
 		query {
@@ -26,7 +29,7 @@ export const BurnChart = props => {
 			const { era, day, units } = eraDay
 			const continuedDay = (Number(era) - 1) * 244 + Number(day)
 			chartData.push([
-				chartInDate ? startDate + continuedDay * 86400000 : (Number(era) * 244 + Number(day)),
+				chartInDate === 1 ? startDate + continuedDay * 86400000 : (Number(era) * 244 + Number(day)),
 				new BigNumber(units).div(1e18).toFixed(2),
 			])
 		}
@@ -76,9 +79,9 @@ export const BurnChart = props => {
 			series: [{ name: 'Amount', data: chartData }],
 			tooltip: { theme: 'dark' },
 			xaxis: {
-				type: chartInDate ? 'datetime' : 'numeric',
+				type: chartInDate > 0 ? 'datetime' : 'numeric',
 				labels: {
-					formatter: chartInDate ? undefined : eraDayFormatter,
+					formatter: chartInDate > 0 ? undefined : eraDayFormatter,
 				},
 				axisBorder: { show: false },
 				axisTicks: { show: false },
@@ -111,10 +114,10 @@ export const BurnChart = props => {
 			series: [{ data: chartData }],
 			stroke: { width: 2 },
 			xaxis: {
-				type: chartInDate ? 'datetime' : 'numeric',
+				type: chartInDate > 0 ? 'datetime' : 'numeric',
 				tickAmount: 30,
 				labels: {
-					formatter: chartInDate ? undefined : eraDayFormatter,
+					formatter: chartInDate > 0 ? undefined : eraDayFormatter,
 				},
 			},
 			yaxis: { tickAmount: 2 },
@@ -124,25 +127,54 @@ export const BurnChart = props => {
 	return (
 		<Flex {...props}>
 			<div className="mixed-chart" style={{ width: '100%', height: '100%' }}>
-				<Heading
-					as='h4'
-					size='xs'
-					fontWeight='normal'
-					fontStyle='italic'
-					lineHeight='1'
-					marginInlineStart='1.1rem'
-					mb='5px'
-					display='flex'
-					opacity='0.8'
-					textStyle='noLigs'>
+				<Flex
+					flexDir='row'
+					justifyContent={{ base: 'center', lg: 'flex-end' }}
+					flexWrap={{ base: 'wrap', lg: 'nowrap' }}
+				>
+					<Heading
+						as='h4'
+						size='xs'
+						w={{ base: '100%', lg: 'auto' }}
+						fontWeight='normal'
+						fontStyle='italic'
+						lineHeight='1'
+						marginInlineStart='1.1rem'
+						mb={{ base: '16px', lg: '0' }}
+						display='flex'
+						opacity='0.8'
+						textStyle='noLigs'>
 					Amount of Ether burnt daily
-					{/* <Button
-						variant='ghost'
-						marginLeft='auto'
-						onClick={ () => { setChartType(!chartInDate) } }>
-						{ chartInDate ? 'Date' : 'Era / Day'}
-					</Button> */}
-				</Heading>
+					</Heading>
+					<Flex
+						borderRadius='4px'
+						ml={{ base: '0', lg: 'auto' }}
+						p='0 1rem'
+					>
+						<CheckboxGroup
+							colorScheme='vether'
+						>
+							<HStack
+								p='0 1rem'
+							>
+								<Checkbox
+									isChecked={showUnclaimed}
+									onChange={() => setShowUnclaimed(!showUnclaimed)}
+								>
+										Unclaimed
+								</Checkbox>
+							</HStack>
+						</CheckboxGroup>
+						<Select
+							value={chartInDate}
+							variant='filled'
+							onChange={(e) => setChartInDate(Number(e.target.value))}>
+							<option value='0'>Day/Era</option>
+							<option value='1'>Date</option>
+						</Select>
+					</Flex>
+				</Flex>
+
 				<Chart
 					options={state.options1}
 					series={state.options1.series}
