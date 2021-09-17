@@ -14,6 +14,7 @@ import defaults from '../../common/defaults'
 import spinner from './spinner'
 import fonts from './fonts'
 import tabs from './tabs'
+import checkbox from './checkbox'
 
 const overrides = {
 	config: {
@@ -55,15 +56,11 @@ const overrides = {
 		Badge: badge,
 		Tooltip: tooltip,
 		Select: select,
-		Progress: {
-			baseStyle: {
-				background: 'red',
-			},
-		},
 		MenuItem: menuitem,
 		Link: link,
 		Spinner: spinner,
 		Tabs: tabs,
+		Checkbox: checkbox,
 		Toast: {
 			minWidth: '440px',
 			baseStyle: {

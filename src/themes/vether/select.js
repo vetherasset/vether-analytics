@@ -2,14 +2,9 @@ export default {
 	variants: {
 		filled: () => ({
 			field: {
-				background: 'white',
-				borderColor: 'accent',
-				_hover: {
-					background: 'white',
-				},
+				background: 'rgba(255, 255, 255, 0.12)',
 				_focus: {
-					borderColor: '#ff8ac0',
-					background: 'white',
+					borderColor: '#ff8ac091',
 				},
 			},
 		}),
