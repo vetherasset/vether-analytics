@@ -1,18 +1,24 @@
 import React from 'react'
 import { useQuery, gql } from '@apollo/client'
-import { Flex, Heading, Select, CheckboxGroup, Checkbox, HStack } from '@chakra-ui/react'
+import { Flex, Box, Heading, Menu, MenuButton, Button, MenuList, MenuItem } from '@chakra-ui/react'
+import { ChevronDownIcon } from '@chakra-ui/icons'
 import BigNumber from 'bignumber.js'
 import Chart from 'react-apexcharts'
 import useLocalStorageState from 'use-local-storage-state'
+import { prettifyNumber } from '../common/utils'
 
 export const BurnChart = props => {
 
 	const [chartInDate, setChartInDate] = useLocalStorageState('chartInDate', 0)
-	const [showUnclaimed, setShowUnclaimed] = useLocalStorageState('showUnclaimed', true)
 
 	const eraDayUnits = gql`
 		query {
 			eraDayUnits(first: 1000) {
+				era
+				day
+				units
+			}
+			eraDayUnitsRemainings(first: 1000) {
 				era
 				day
 				units
@@ -22,22 +28,33 @@ export const BurnChart = props => {
 
 	const { data } = useQuery(eraDayUnits)
 	const startDate = 1589271741000
-	const chartData = []
+	const unitsChartData = []
+	const remainingChartData = []
 
 	if (data) {
 		for (const eraDay of data.eraDayUnits) {
 			const { era, day, units } = eraDay
 			const continuedDay = (Number(era) - 1) * 244 + Number(day)
-			chartData.push([
+			unitsChartData.push([
 				chartInDate === 1 ? startDate + continuedDay * 86400000 : (Number(era) * 244 + Number(day)),
-				new BigNumber(units).div(1e18).toFixed(2),
+				prettifyNumber(BigNumber(units).div(1e18), 0, 5),
+			])
+		}
+		for (const eraDay of data.eraDayUnitsRemainings) {
+			const { era, day, units } = eraDay
+			const continuedDay = (Number(era) - 1) * 244 + Number(day)
+			remainingChartData.push([
+				chartInDate ? startDate + continuedDay * 86400000 : (Number(era) * 244 + Number(day)),
+				prettifyNumber(BigNumber(units).div(1e18), 0, 5),
 			])
 		}
 	}
 	else {
-		chartData.push([0, 0])
+		unitsChartData.push([0, 0])
+		remainingChartData.push([0, 0])
 	}
-	chartData.sort()
+	unitsChartData.sort()
+	remainingChartData.sort()
 
 	const eraDayFormatter = (value) => {
 		const era = Math.floor(value / 244)
@@ -57,7 +74,7 @@ export const BurnChart = props => {
 					show: false,
 				},
 			},
-			colors: ['#ff596f'],
+			colors: ['#ff596f', '#5559bf'],
 			stroke: { width: 2 },
 			grid: {
 				borderColor: '#555',
@@ -76,7 +93,10 @@ export const BurnChart = props => {
 					opacityTo: 0,
 				},
 			},
-			series: [{ name: 'Amount', data: chartData }],
+			series: [
+				{ name: 'Burnt', data: unitsChartData },
+				{ name: 'Unclaimed', data: remainingChartData },
+			],
 			tooltip: { theme: 'dark' },
 			xaxis: {
 				type: chartInDate > 0 ? 'datetime' : 'numeric',
@@ -105,13 +125,16 @@ export const BurnChart = props => {
 						opacity: 0.4,
 					},
 					xaxis: {
-						min: chartData[0][0],
-						max: chartData[chartData.length - 1][0],
+						min: unitsChartData[0][0],
+						max: unitsChartData[unitsChartData.length - 1][0],
 					},
 				},
 			},
-			colors: ['#ff596f'],
-			series: [{ data: chartData }],
+			colors: ['#ff596f', '#5559bf'],
+			series: [
+				{ name: 'Burnt', data: unitsChartData },
+				{ name: 'Remaining', data: remainingChartData },
+			],
 			stroke: { width: 2 },
 			xaxis: {
 				type: chartInDate > 0 ? 'datetime' : 'numeric',
@@ -149,29 +172,41 @@ export const BurnChart = props => {
 					<Flex
 						borderRadius='4px'
 						ml={{ base: '0', lg: 'auto' }}
-						p='0 1rem'
 					>
-						<CheckboxGroup
-							colorScheme='vether'
+						<Menu
+							autoSelect={false}
 						>
-							<HStack
-								p='0 1rem'
+							<MenuButton
+								as={Button}
+								variant='grayFilled'
+								rightIcon={<ChevronDownIcon />}
+								fontSize='0.90rem'
+								minW='180.883px'
 							>
-								<Checkbox
-									isChecked={showUnclaimed}
-									onChange={() => setShowUnclaimed(!showUnclaimed)}
-								>
-										Unclaimed
-								</Checkbox>
-							</HStack>
-						</CheckboxGroup>
-						<Select
-							value={chartInDate}
-							variant='filled'
-							onChange={(e) => setChartInDate(Number(e.target.value))}>
-							<option value='0'>Day/Era</option>
-							<option value='1'>Date</option>
-						</Select>
+								<Box
+									textTransform='uppercase'
+									fontSize='0.68rem'
+									opacity='0.70'
+									pr='0.4rem'
+									as='span'>
+										Time format:
+								</Box>
+								{chartInDate === 0 &&
+									<>
+										Day/Era
+									</>
+								}
+								{chartInDate > 0 &&
+									<>
+										Date
+									</>
+								}
+							</MenuButton>
+							<MenuList>
+								<MenuItem onClick={() => setChartInDate(0)}>Day/Era</MenuItem>
+								<MenuItem onClick={() => setChartInDate(1)}>Date</MenuItem>
+							</MenuList>
+						</Menu>
 					</Flex>
 				</Flex>
 

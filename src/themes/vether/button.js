@@ -65,5 +65,19 @@ export default {
 				opacity: '0.6',
 			},
 		}),
+		grayFilled: () => ({
+			background: 'rgba(255, 255, 255, 0.12)',
+			_hover: {
+				background: '#373737',
+			},
+			_focus: {
+				background: '#2a2a2a',
+				boxShadow: '0 0 0 3px #ff8ac091',
+			},
+			_active: {
+				background: '#2a2a2a',
+				boxShadow: '0 0 0 3px #ff8ac091',
+			},
+		}),
 	},
 }

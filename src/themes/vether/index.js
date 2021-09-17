@@ -56,11 +56,6 @@ const overrides = {
 		Badge: badge,
 		Tooltip: tooltip,
 		Select: select,
-		Progress: {
-			baseStyle: {
-				background: 'red',
-			},
-		},
 		MenuItem: menuitem,
 		Link: link,
 		Spinner: spinner,
