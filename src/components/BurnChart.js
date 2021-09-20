@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery, gql } from '@apollo/client'
 import { Flex, Box, Heading, Menu, MenuButton, Button, MenuList, MenuItem, CheckboxGroup, Checkbox, HStack } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
@@ -11,8 +11,8 @@ import { prettifyNumber } from '../common/utils'
 export const BurnChart = props => {
 
 	const [chartInDate, setChartInDate] = useLocalStorageState('chartInDate', 0)
-	const [showUnclaimed, setShowUnclaimed] = useLocalStorageState('showUnclaimed', false)
-	const [showBurnt, setShowBurnt] = useLocalStorageState('showBurnt', true)
+	const [showUnclaimed, setShowUnclaimed] = useState(true)
+	const [showBurnt, setShowBurnt] = useState(true)
 
 	const eraDayUnits = gql`
 		query {
