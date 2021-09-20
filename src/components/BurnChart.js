@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useQuery, gql } from '@apollo/client'
-import { Flex, Box, Heading, Menu, MenuButton, Button, MenuList, MenuItem } from '@chakra-ui/react'
+import { Flex, Box, Heading, Menu, MenuButton, Button, MenuList, MenuItem, CheckboxGroup, Checkbox, HStack } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import BigNumber from 'bignumber.js'
 import Chart from 'react-apexcharts'
+import ApexCharts from 'apexcharts'
 import useLocalStorageState from 'use-local-storage-state'
 import { prettifyNumber } from '../common/utils'
 
 export const BurnChart = props => {
 
 	const [chartInDate, setChartInDate] = useLocalStorageState('chartInDate', 0)
+	const [showUnclaimed, setShowUnclaimed] = useLocalStorageState('showUnclaimed', false)
+	const [showBurnt, setShowBurnt] = useLocalStorageState('showBurnt', true)
 
 	const eraDayUnits = gql`
 		query {
@@ -132,7 +135,7 @@ export const BurnChart = props => {
 			colors: ['#ff596f', '#5559bf'],
 			series: [
 				{ name: 'Burnt', data: unitsChartData },
-				{ name: 'Remaining', data: remainingChartData },
+				{ name: 'Unclaimed', data: remainingChartData },
 			],
 			stroke: { width: 2 },
 			xaxis: {
@@ -145,6 +148,28 @@ export const BurnChart = props => {
 			yaxis: { tickAmount: 2 },
 		},
 	}
+
+	useEffect(() => {
+		if (showUnclaimed) {
+			ApexCharts.exec('chart2', 'showSeries', 'Unclaimed')
+			ApexCharts.exec('chart1', 'showSeries', 'Unclaimed')
+		}
+		else {
+			ApexCharts.exec('chart2', 'hideSeries', 'Unclaimed')
+			ApexCharts.exec('chart1', 'hideSeries', 'Unclaimed')
+		}
+	}, [showUnclaimed])
+
+	useEffect(() => {
+		if (showBurnt) {
+			ApexCharts.exec('chart2', 'showSeries', 'Burnt')
+			ApexCharts.exec('chart1', 'showSeries', 'Burnt')
+		}
+		else {
+			ApexCharts.exec('chart2', 'hideSeries', 'Burnt')
+			ApexCharts.exec('chart1', 'hideSeries', 'Burnt')
+		}
+	}, [showBurnt])
 
 	return (
 		<Flex {...props}>
@@ -172,6 +197,26 @@ export const BurnChart = props => {
 						borderRadius='4px'
 						ml={{ base: '0', lg: 'auto' }}
 					>
+						<CheckboxGroup
+							colorScheme='vether'
+						>
+							<HStack
+								p='0 1rem'
+							>
+								<Checkbox
+									isChecked={showBurnt}
+									onChange={() => setShowBurnt(!showBurnt)}
+								>
+										Burnt
+								</Checkbox>
+								<Checkbox
+									isChecked={showUnclaimed}
+									onChange={() => setShowUnclaimed(!showUnclaimed)}
+								>
+										Unclaimed
+								</Checkbox>
+							</HStack>
+						</CheckboxGroup>
 						<Menu
 							autoSelect={false}
 						>
