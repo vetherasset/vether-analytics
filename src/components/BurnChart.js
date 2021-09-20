@@ -16,39 +16,44 @@ export const BurnChart = props => {
 
 	const eraDayUnits = gql`
 		query {
-			eraDayUnits(first: 1000) {
+			eraDayUnits(
+				first: 1000
+				where: { timestamp_gt: 0 }
+				) {
 				era
 				day
 				units
+				timestamp
 			}
-			eraDayUnitsRemainings(first: 1000) {
+			eraDayEmissionRemainings(
+					first: 1000
+					where: { timestamp_gt: 0 }
+				) {
 				era
 				day
-				units
+				emission
+				timestamp
 			}
 		}
 	`
 
 	const { data } = useQuery(eraDayUnits)
-	const startDate = 1589271741000
 	const unitsChartData = []
 	const remainingChartData = []
 
 	if (data) {
 		for (const eraDay of data.eraDayUnits) {
-			const { era, day, units } = eraDay
-			const continuedDay = (Number(era) - 1) * 244 + Number(day)
+			const { era, day, units, timestamp } = eraDay
 			unitsChartData.push([
-				chartInDate === 1 ? startDate + continuedDay * 86400000 : (Number(era) * 244 + Number(day)),
+				chartInDate === 1 ? Number(timestamp + '000') : (Number(era) * 244 + Number(day)),
 				prettifyNumber(BigNumber(units).div(1e18), 0, 5),
 			])
 		}
-		for (const eraDay of data.eraDayUnitsRemainings) {
-			const { era, day, units } = eraDay
-			const continuedDay = (Number(era) - 1) * 244 + Number(day)
+		for (const eraDay of data.eraDayEmissionRemainings) {
+			const { era, day, emission, timestamp } = eraDay
 			remainingChartData.push([
-				chartInDate ? startDate + continuedDay * 86400000 : (Number(era) * 244 + Number(day)),
-				prettifyNumber(BigNumber(units).div(1e18), 0, 5),
+				chartInDate ? Number(timestamp + '000') : (Number(era) * 244 + Number(day)),
+				prettifyNumber(BigNumber(emission).div(1e18), 0, 5),
 			])
 		}
 	}
