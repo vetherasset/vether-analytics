@@ -12,6 +12,7 @@ export const BurnChart = props => {
 
 	const [chartInDate, setChartInDate] = useLocalStorageState('chartInDate', 0)
 	const [showUnclaimed, setShowUnclaimed] = useLocalStorageState('showUnclaimed', false)
+	const [showBurnt, setShowBurnt] = useLocalStorageState('showBurnt', true)
 
 	const eraDayUnits = gql`
 		query {
@@ -160,6 +161,17 @@ export const BurnChart = props => {
 		}
 	}, [showUnclaimed])
 
+	useEffect(() => {
+		if (showBurnt) {
+			ApexCharts.exec('chart2', 'showSeries', 'Burnt')
+			ApexCharts.exec('chart1', 'showSeries', 'Burnt')
+		}
+		else {
+			ApexCharts.exec('chart2', 'hideSeries', 'Burnt')
+			ApexCharts.exec('chart1', 'hideSeries', 'Burnt')
+		}
+	}, [showBurnt])
+
 	return (
 		<Flex {...props}>
 			<div className="mixed-chart" style={{ width: '100%', height: '100%' }}>
@@ -192,6 +204,12 @@ export const BurnChart = props => {
 							<HStack
 								p='0 1rem'
 							>
+								<Checkbox
+									isChecked={showBurnt}
+									onChange={() => setShowBurnt(!showBurnt)}
+								>
+										Burnt
+								</Checkbox>
 								<Checkbox
 									isChecked={showUnclaimed}
 									onChange={() => setShowUnclaimed(!showUnclaimed)}
