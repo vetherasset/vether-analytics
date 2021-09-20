@@ -177,6 +177,13 @@ export const BurnChart = props => {
 		}
 	}, [showBurnt])
 
+	useEffect(() => {
+		setShowBurnt(true)
+		setShowUnclaimed(true)
+		ApexCharts.exec('chart2', 'resetSeries')
+		ApexCharts.exec('chart1', 'resetSeries')
+	}, [chartInDate])
+
 	return (
 		<Flex {...props}>
 			<div className="mixed-chart" style={{ width: '100%', height: '100%' }}>
