@@ -4,7 +4,6 @@ import { HiDotsHorizontal } from 'react-icons/hi'
 import { FaDiscord, FaTelegramPlane, FaGithub } from 'react-icons/fa'
 import { HiFire } from 'react-icons/hi'
 import { IoIosPaper } from 'react-icons/io'
-import { MdHelp } from 'react-icons/md'
 import UniswapIcon from '../assets/svg/uniswap.svg'
 
 const linkStyle = {
@@ -50,12 +49,6 @@ export const InfoMenu = (props) => {
 					<Link {...linkStyle} isExternal href='https://wp.vetherasset.io/'>
 						<IoIosPaper style={iconStyle}/>
 						Whitepaper
-					</Link>
-				</MenuItem>
-				<MenuItem {...menuItemStyle}>
-					<Link {...linkStyle} isExternal href='https://docs.vetherasset.io/'>
-						<MdHelp style={iconStyle}/>
-						Docs
 					</Link>
 				</MenuItem>
 				<MenuDivider />
