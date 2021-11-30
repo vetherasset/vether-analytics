@@ -2,8 +2,6 @@ import React from 'react'
 import { Flex, Link, useBreakpointValue, Image } from '@chakra-ui/react'
 import { FaDiscord, FaTelegramPlane, FaGithub } from 'react-icons/fa'
 import { IoIosPaper } from 'react-icons/io'
-import { IoBarChart } from 'react-icons/io5'
-import { MdHelp } from 'react-icons/md'
 import UniswapIcon from '../assets/svg/uniswap.svg'
 
 export const Footer = (props) => {
@@ -40,14 +38,6 @@ const Links = (props) => {
 			<Link {...linkStyle} isExternal href='https://wp.vetherasset.io/'>
 				<IoIosPaper style={iconStyle}/>
 				Whitepaper
-			</Link>
-			<Link {...linkStyle} isExternal href='https://stats.vetherasset.app/'>
-				<IoBarChart style={iconStyle}/>
-				Analytics
-			</Link>
-			<Link {...linkStyle} isExternal href='https://docs.vetherasset.io/'>
-				<MdHelp style={iconStyle}/>
-				Docs
 			</Link>
 			<Link {...linkStyle} isExternal href='https://discord.com/invite/c5aBC7Q'>
 				<FaDiscord style={iconStyle}/>
